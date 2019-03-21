@@ -843,7 +843,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	          ),
 	          _react2.default.createElement(
 	            'g',
-	            { className: 'rv-force__nodes' },
+              { className: 'rv-force__nodes' },
+              _react2.default.createElement(
+                'defs',
+                _react2.default.createElement(
+                  'pattern',
+                  {id:"img1", patternUnits:"userSpaceOnUse", width:"100%", height:"650"},
+                  _react2.default.createElement(
+                    'image',
+                    {href:"http://gastv.mx/wp-content/uploads/2014/05/jumex.jpg", x:"-30", y:"-30",
+                    width:"380", height:"267"}
+                  ),
+                ),
+              ),
 	            nodeElements
 	          ),
 	          _react2.default.createElement(
@@ -1657,16 +1669,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _node$radius = node.radius,
 	          radius = _node$radius === undefined ? 5 : _node$radius;
   
-          
-	
-	      return _react2.default.createElement(
-          'a',
-          { href: url},
-          _react2.default.createElement(          
-            'circle', _extends({
-            className: 'rv-force__node ' + className,
-            r: r || radius
-          }, spreadable)));
+       
+            
+          return _react2.default.createElement(
+            'a',
+            { href: url},
+            _react2.default.createElement(          
+              'image', _extends({
+              href:"https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png",height:"200", width:"200"/>
+
+              className: 'rv-force__node '
+            }, spreadable)));
+	      // return _react2.default.createElement(
+        //   'a',
+        //   { href: url},
+        //   _react2.default.createElement(          
+        //     'circle', _extends({
+        //     className: 'rv-force__node ' + className,
+        //     r: r || radius
+        //   }, spreadable)));
 	    }
 	  }], [{
 	    key: 'propTypes',
