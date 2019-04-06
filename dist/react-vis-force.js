@@ -789,7 +789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 										y: nodePosition.cy,
 										fontSize: _this2.scale(fontSize),
 										textAnchor: 'middle',
-										wordBreak: "break-all"
+										
 									},
 										_react2.default.createElement(
 											'tspan',
