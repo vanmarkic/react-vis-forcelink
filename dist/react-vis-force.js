@@ -572,6 +572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        updateSimulation: forceUtils.updateSimulation,
 	        zoom: false,
 					labelAttr: 'id',
+					firstName: 'first',
 					labelSecondary: 'job',
 	        simulationOptions: _simulation.DEFAULT_SIMULATION_PROPS,
 	        labelOffset: {
@@ -723,6 +724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          children = _props.children,
 	          className = _props.className,
 						labelAttr = _props.labelAttr,
+						firstName = _props.firstName,
 						labelSecondary = _props.labelSecondary,
 	          labelOffset = _props.labelOffset,
 	          showLabels = _props.showLabels,
@@ -773,7 +775,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var fontSize = labelStyle.fontSize,
 									url = labelStyle.href,
 									spreadableLabelStyle = _objectWithoutProperties(labelStyle, ['fontSize']);
-	
+									
 	            labelElements.push(
 							_react2.default.createElement(
 								'a',
@@ -787,14 +789,25 @@ return /******/ (function(modules) { // webpackBootstrap
 										y: nodePosition.cy,
 										fontSize: _this2.scale(fontSize),
 										textAnchor: 'middle',
+										wordBreak: "break-all"
 									},
+										_react2.default.createElement(
+											'tspan',
+											{
+												style: spreadableLabelStyle,
+												x: nodePosition.cx,
+												textAnchor: 'middle',
+												dy:"-1em"
+											},
+										node[firstName]
+									),
 									_react2.default.createElement(
 										'tspan',
 										{
 											style: spreadableLabelStyle,
 											x: nodePosition.cx,
 											textAnchor: 'middle',
-											// dy:"-0.1em"
+											dy:"1em"
 										},
 										node[labelAttr]
 									),
@@ -804,7 +817,7 @@ return /******/ (function(modules) { // webpackBootstrap
 											x: nodePosition.cx,
 											textAnchor: 'middle',
 											dy:"2em",
-											fontSize:"12px"
+											fontSize:"10px"
 										},
 										node[labelSecondary]
 									),
@@ -985,10 +998,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    get: function get() {
 	      return {
 	        className: '',
-	        opacity: 0.6,
-	        stroke: '#999',
+	        opacity: 1,
+	        stroke: '#000',
 					edgeOffset: 0,
-					strokeWidth: 2,
+					strokeWidth: 1.5,
 	      };
 	    }
 	  }]);
