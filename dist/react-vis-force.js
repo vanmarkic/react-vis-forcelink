@@ -558,7 +558,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        simulationOptions: _simulation2.default,
 	
 	        // adjust label display
-	        labelAttr: _propTypes2.default.string,
+					labelAttr: _propTypes2.default.string,
+					labelSecondary: _propTypes2.default.string,
 	        labelOffset: _propTypes2.default.objectOf(_propTypes2.default.func),
 	        showLabels: _propTypes2.default.bool
 	      };
@@ -570,7 +571,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        createSimulation: forceUtils.createSimulation,
 	        updateSimulation: forceUtils.updateSimulation,
 	        zoom: false,
-	        labelAttr: 'id',
+					labelAttr: 'id',
+					labelSecondary: 'job',
 	        simulationOptions: _simulation.DEFAULT_SIMULATION_PROPS,
 	        labelOffset: {
 	          x: function x(_ref) {
@@ -720,7 +722,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props = this.props,
 	          children = _props.children,
 	          className = _props.className,
-	          labelAttr = _props.labelAttr,
+						labelAttr = _props.labelAttr,
+						labelSecondary = _props.labelSecondary,
 	          labelOffset = _props.labelOffset,
 	          showLabels = _props.showLabels,
 	          simulationOptions = _props.simulationOptions,
@@ -767,27 +770,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	          })));
 	
 	          if ((showLabels || showLabel) && nodePosition) {
-              var fontSize = labelStyle.fontSize,
-                  url = labelStyle.href,
-	                spreadableLabelStyle = _objectWithoutProperties(labelStyle, ['fontSize']);
+	            var fontSize = labelStyle.fontSize,
+									url = labelStyle.href,
+									spreadableLabelStyle = _objectWithoutProperties(labelStyle, ['fontSize']);
 	
-	            labelElements.push(_react2.default.createElement(
-                'a',
-                { href: url},
-                _react2.default.createElement(
-                'text',
-	              {
-	                className: 'rv-force__label ' + labelClass,
-	                key: forceUtils.nodeId(node) + '-label',
-	                x: nodePosition.cx,
-                  y: nodePosition.cy,
-                  textAnchor: 'middle',
-                  fontSize: _this2.scale(fontSize),
-	                style: spreadableLabelStyle
-	              },
-	              node[labelAttr]
-              )));
-              
+	            labelElements.push(
+							_react2.default.createElement(
+								'a',
+								{ href: url},
+								_react2.default.createElement(
+									'text',
+									{
+										// className:	'rv-force__label__name ' + labelClass,
+										key: forceUtils.nodeId(node) + '-label',
+										x: nodePosition.cx,
+										y: nodePosition.cy,
+										fontSize: _this2.scale(fontSize),
+										textAnchor: 'middle',
+									},
+									_react2.default.createElement(
+										'tspan',
+										{
+											style: spreadableLabelStyle,
+											x: nodePosition.cx,
+											textAnchor: 'middle',
+											// dy:"-0.1em"
+										},
+										node[labelAttr]
+									),
+									_react2.default.createElement(
+										'tspan',
+										{
+											x: nodePosition.cx,
+											textAnchor: 'middle',
+											dy:"2em",
+											fontSize:"12px"
+										},
+										node[labelSecondary]
+									),
+							)));
 	          }
 	        } else if (isLink(child)) {
 	          var link = child.props.link;
@@ -843,19 +864,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          ),
 	          _react2.default.createElement(
 	            'g',
-              { className: 'rv-force__nodes' },
-              _react2.default.createElement(
-                'defs',
-                _react2.default.createElement(
-                  'pattern',
-                  {id:"img1", patternUnits:"userSpaceOnUse", width:"100%", height:"650"},
-                  _react2.default.createElement(
-                    'image',
-                    {href:"http://gastv.mx/wp-content/uploads/2014/05/jumex.jpg", x:"-30", y:"-30",
-                    width:"380", height:"267"}
-                  ),
-                ),
-              ),
+	            { className: 'rv-force__nodes' },
 	            nodeElements
 	          ),
 	          _react2.default.createElement(
@@ -978,7 +987,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        className: '',
 	        opacity: 0.6,
 	        stroke: '#999',
-	        edgeOffset: 0
+					edgeOffset: 0,
+					strokeWidth: 2,
 	      };
 	    }
 	  }]);
@@ -1659,8 +1669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var _props = this.props,
 	          node = _props.node,
 	          className = _props.className,
-            r = _props.r,
-            url= _props.url,
+	          r = _props.r,
 	          labelStyle = _props.labelStyle,
 	          labelClass = _props.labelClass,
 	          showLabel = _props.showLabel,
@@ -1668,26 +1677,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var _node$radius = node.radius,
 	          radius = _node$radius === undefined ? 5 : _node$radius;
-  
-       
-            
-          return _react2.default.createElement(
-            'a',
-            { href: url},
-            _react2.default.createElement(          
-              'image', _extends({
-              href:"https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png",height:"200", width:"200"/>
-
-              className: 'rv-force__node '
-            }, spreadable)));
-	      // return _react2.default.createElement(
-        //   'a',
-        //   { href: url},
-        //   _react2.default.createElement(          
-        //     'circle', _extends({
-        //     className: 'rv-force__node ' + className,
-        //     r: r || radius
-        //   }, spreadable)));
+	
+	
+	      return _react2.default.createElement('circle', _extends({
+	        className: 'rv-force__node ' + className,
+	        r: r || radius
+	      }, spreadable));
 	    }
 	  }], [{
 	    key: 'propTypes',
@@ -1908,11 +1903,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var opacityForNode = function opacityForNode(node) {
 	        var origOpacity = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 	
-	        if (highlightDependencies && selectedNode && !isNodeHighlighted(selectedNode, node) && !isNodeHighlighted(hoveredNode, node)) {
-	          return applyOpacity(origOpacity / 4);
-	        } else if (selectedNode && !isNodeHighlighted(selectedNode, node) && !isNodeHighlighted(hoveredNode, node) || hoveredNode && !isNodeHighlighted(hoveredNode, node)) {
-	          return applyOpacity(origOpacity);
-	        }
+	        // if (highlightDependencies && selectedNode && !isNodeHighlighted(selectedNode, node) && !isNodeHighlighted(hoveredNode, node)) {
+	        //   return applyOpacity(origOpacity / 4);
+	        // } else if (selectedNode && !isNodeHighlighted(selectedNode, node) && !isNodeHighlighted(hoveredNode, node) || hoveredNode && !isNodeHighlighted(hoveredNode, node)) {
+	        //   return applyOpacity(origOpacity);
+	        // }
 	
 	        return origOpacity;
 	      };
@@ -1945,8 +1940,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                fontWeight = _child$props$fontWeig === undefined ? fontWeightForNode(node) : _child$props$fontWeig,
 	                _child$props$showLabe = _child$props.showLabel,
 	                showLabel = _child$props$showLabe === undefined ? showLabelForNode(node) : _child$props$showLabe,
-	                onMouseEnter = _child$props.onMouseEnter,
-	                onMouseLeave = _child$props.onMouseLeave,
+	                // onMouseEnter = _child$props.onMouseEnter,
+	                // onMouseLeave = _child$props.onMouseLeave,
 	                onClick = _child$props.onClick;
 	            var opacity = child.props.opacity;
 	
@@ -1960,8 +1955,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                fontWeight: fontWeight,
 	                opacity: opacity
 	              }, labelStyle),
-	              onMouseEnter: createEventHandler('onHoverNode', node, onMouseEnter),
-	              onMouseLeave: createEventHandler('onBlurNode', node, onMouseLeave),
+	              // onMouseEnter: createEventHandler('onHoverNode', node, onMouseEnter),
+	              // onMouseLeave: createEventHandler('onBlurNode', node, onMouseLeave),
 	              onClick: createEventHandler('onClickNode', node, onClick)
 	            });
 	          } else if ((0, _ForceGraph.isLink)(child)) {
